@@ -17,7 +17,7 @@ if(process.env.NODE_ENV==='production'){
   app.use(express.static('client/build'))
 }
 
-const OT=new opentok(process.env.API_KEY,process.env.SECRET);
+const OT=new opentok("47536461","451939008cebc5c2dc26f19dc50417af8bf2c8e3");
 
 const port=process.env.PORT||5000;
 

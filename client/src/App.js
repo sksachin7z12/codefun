@@ -33,7 +33,7 @@ function App() {
       <Route exact path='/' element={<Home/>}/>
       <Route exact path='/join' element={<Join notify={notify} /> }/>
       <Route exact path='/room' element={<Room notify={notify} />}/>
-      <Route exact path='/whiteboard' element={<Container/>} />
+      
      
      </Routes>
     
