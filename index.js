@@ -117,7 +117,10 @@ if(user!==undefined){
 //   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
 // });
 app.get('/join',(req,res)=>{
-  res.sendFile(__dirname+'client/build/index.html')
+  res.sendFile(__dirname+'/client/build/index.html')
+})
+app.get('/room',(req,res)=>{
+  res.sendFile(__dirname+'/client/build/index.html')
 })
 app.post('/token',async(req,res)=>{
   const {room}=req.body;
