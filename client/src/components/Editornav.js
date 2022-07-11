@@ -22,6 +22,9 @@ function Editornav({source,chat,setChat,compiler,room,handlesendcode,whiteBoard,
         setContri(!contri)
    
     }
+    // const host="http:localhost:5000";
+    const host="https://codecollab7z2.herokuapp.com";
+
   return (
     <div>
          <nav>
@@ -79,7 +82,7 @@ function Editornav({source,chat,setChat,compiler,room,handlesendcode,whiteBoard,
                 
                 <li onMouseOver={()=>{document.getElementById('share').style.display="block"}} onMouseLeave={()=>{document.getElementById('share').style.display="none"}}>
                   <div>
-                <button onClick={()=>{window.navigator.clipboard.writeText(`http://localhost:3000/room?room=${room}&sessionId=${localStorage.getItem('sessionId')}&token=${localStorage.getItem('token')}`);notify("link copied")}} className='text-white text-lg sm:px-3'><BsShareFill/></button>
+                <button onClick={()=>{window.navigator.clipboard.writeText(`${host}/room?room=${room}&sessionId=${localStorage.getItem('sessionId')}&token=${localStorage.getItem('token')}`);notify("link copied")}} className='text-white text-lg sm:px-3'><BsShareFill/></button>
 
                   </div>
                   <div id='share' className='hidden text-white bg-black p-2 rounded-md absolute top-[7rem]'>

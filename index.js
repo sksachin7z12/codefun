@@ -17,23 +17,23 @@ if(process.env.NODE_ENV==='production'){
   app.use(express.static('client/build'))
 }
 
-const OT=new opentok("47536461","451939008cebc5c2dc26f19dc50417af8bf2c8e3");
+const OT=new opentok(process.env.API_KEY,process.env.SECRET);
 
 const port=process.env.PORT||5000;
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: "http://localhost:3000",
-        // origin:"https://codecollab7z2.herokuapp.com/",
+        // origin: "http://localhost:3000",
+        origin:"https://codecollab7z2.herokuapp.com",
         methods: ["GET", "POST"]
       }
  });
 
 io.on("connection", (socket) => {
-  socket.on("join",({name,room,dp,name1},callback)=>{
+  socket.on("join",({name,room,dp},callback)=>{
    
-    const {error,user}=addUser({id:socket.id,name,room,dp,name1});
+    const {error,user}=addUser({id:socket.id,name,room,dp});
     if(error)
     return callback(error)
 
@@ -113,6 +113,12 @@ if(user!==undefined){
   }
   })
 });
+// app.get('*', (req, res) => {  // have to add in header const path=require('path)
+//   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+// });
+app.get('/join',(req,res)=>{
+  res.sendFile(__dirname+'client/build/index.html')
+})
 app.post('/token',async(req,res)=>{
   const {room}=req.body;
   OT.createSession((err,session)=>{

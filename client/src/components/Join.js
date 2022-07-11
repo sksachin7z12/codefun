@@ -66,7 +66,7 @@ setLoading(false);
   localStorage.setItem('token',data.token);
   //can use context api but for now localstorage or directly to app.js
   
-  navigate(`/room?name1=${name}&room=${room}`);
+  navigate(`/room?name=${name}&room=${room}`);
 
    
   }

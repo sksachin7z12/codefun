@@ -74,12 +74,24 @@ useEffect(() => {
   
 
  const {name,room} =queryString.parse(location.search);
+ if(!room ){
+  navigate('/join');
+  notify('Room is not created ');
+
+ }
  
  socket=io(ENDPOINT);
+
+ if(!name){
+  setName(localStorage.getItem('email').split('@')[0]);
+ }
+else{
+
   setName(name);
+}
   setRoom(room);
   
-  socket.emit('join',{name,room,dp:localStorage.getItem('dp'),name1:localStorage.getItem('email').split("@")[0]},(error)=>{
+  socket.emit('join',{name:name?name:localStorage.getItem('email').split('@')[0],room,dp:localStorage.getItem('dp')},(error)=>{
     if(error){
     
       navigate('/join');
@@ -90,21 +102,12 @@ useEffect(() => {
 
 return ()=>{
   socket.disconnect();
-// socket.off();
-localStorage.removeItem('tokencode');
-localStorage.removeItem('token');
-localStorage.removeItem('sessionId');
+
+
 
 }
 }, [ENDPOINT,location.search,navigate,notify]);
-// useEffect(() => {
-//   socket.on("inicode",({source,inp,out})=>{
-//     setSource(source);
-//     setInp(inp);
-//     setStdo(out);
-//   })
-    
-//   }, [])
+
 useEffect(() => {
  
 socket.on('message',(message)=>{
@@ -187,7 +190,6 @@ setSource(newValue);
     const [whiteBoard, setWhiteBoard] = useState(false);
     const [mode, setMode] = useState("javascript");
     const [theme, setTheme] = useState("monokai");
-    // const [complete, setcomplete] = useState(false);
     
     const handlesend=()=>{
      
@@ -259,12 +261,12 @@ setLoading(false);
     <div className='h-[73vh] bg-yellow-200 overflow-y-scroll'>
       {
         messages.map((message,i)=>{
-         return <div key={i}><Message name={name?name:localStorage.getItem('email').split('@')[0]} message={message}/></div>
+         return <div key={i}><Message name={name} message={message}/></div>
         })
       }
     </div>
     <div className='flex'>
-      <input value={message} className='w-[300px]' type="text" name="input" id="input" onChange={(e)=>{
+      <input placeholder='Type message...' value={message} className='w-[300px] px-3' type="text" name="input" id="input" onChange={(e)=>{
         setMessage(e.target.value);
       }} />
       <button onClick={handlesend} className='btn-primary'>Send</button>
@@ -294,15 +296,15 @@ setLoading(false);
   {users?
   <div>
    
-    {users.map(({name,dp,name1})=>{
-     return <div className='grid grid-cols-[60px_1fr] mb-3 items-center' key={name?name:name1}>
+    {users.map(({name,dp})=>{
+     return <div className='grid grid-cols-[60px_1fr] mb-3 items-center' key={name}>
         <div>
          { dp?<img src={`${dp}`} alt='' width="50"/>
         :<Avatar name={name} size={50}/>}
           
         </div>
         <div>
-          {name?name:name1}
+          {name}
         </div>
      </div>
     })}
@@ -316,13 +318,13 @@ setLoading(false);
   {users?
   <div>
    
-    {users.map(({name,dp,name1})=>{
+    {users.map(({name,dp})=>{
      return <div className='grid grid-cols-[60px_1fr] mb-3 items-center' key={name}>
         <div>
           <img src={`${dp}`} alt="dp" width="50"/>
         </div>
         <div>
-          {name?name:name1}
+          {name}
         </div>
      </div>
     })}
