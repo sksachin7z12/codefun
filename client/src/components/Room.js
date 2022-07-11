@@ -61,7 +61,7 @@ const [loading, setLoading] = useState(false)
   const [contri, setContri] = useState(false)
 
 // const ENDPOINT="http://localhost:5000";
-const ENDPOINT="https://codecollab7z2.herokuapp.com/";
+const ENDPOINT="https://codecollab7z2.herokuapp.com";
 
 
 useEffect(() => {

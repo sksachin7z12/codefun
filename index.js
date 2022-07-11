@@ -24,8 +24,8 @@ const port=process.env.PORT||5000;
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        // origin: "http://localhost:3000",
-        origin:"https://codecollab7z2.herokuapp.com/",
+        origin: "http://localhost:3000",
+        // origin:"https://codecollab7z2.herokuapp.com/",
         methods: ["GET", "POST"]
       }
  });

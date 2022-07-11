@@ -7,7 +7,8 @@ class Board extends React.Component {
   a =query.parse(window.location.search);
   
     timeout;
-    socket = io("http://localhost:5000");
+    
+    socket = io("https://codecollab7z2.herokuapp.com");
 
     ctx;
     isDrawing = false;
