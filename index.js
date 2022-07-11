@@ -1,4 +1,3 @@
-  require('dotenv').config();
 const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
@@ -6,6 +5,7 @@ const {addUser,getuserinroom,removeUser,getUser,isEmpty} =require('./users');
 const {addcode,removecode,getcode}=require("./code");
 const {getSessionid,addsession,removesession} =require('./session')
 const opentok=require("opentok");
+require('dotenv').config();
 
 const cors=require("cors");
 
