@@ -14,7 +14,7 @@ import Home from './components/Home';
 import Room from './components/Room';
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
-import Container from './components/whiteboard/container/Container';
+
 import queryString from 'query-string'
 function App() {
   
