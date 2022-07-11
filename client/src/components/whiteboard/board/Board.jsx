@@ -14,7 +14,7 @@ class Board extends React.Component {
 
     constructor(props) {
         super(props);
-            console.log(this.a)
+            
             this.socket.emit('joinwhite',{room:this.a.room})
         this.socket.on("canvas-data", function(data){
 

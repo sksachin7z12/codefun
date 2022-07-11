@@ -1,4 +1,4 @@
-require('dotenv').config();
+  require('dotenv').config();
 const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
@@ -12,22 +12,28 @@ const cors=require("cors");
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+if(process.env.NODE_ENV==='production'){
+  app.use(express.static('client/build'))
+}
+
 const OT=new opentok(process.env.API_KEY,process.env.SECRET);
 
-const port=process.env.NODE_ENV||5000;
+const port=process.env.PORT||5000;
 
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
-        origin: "http://localhost:3000",
+        // origin: "http://localhost:3000",
+        origin:"https://codecollab7z2.herokuapp.com/",
         methods: ["GET", "POST"]
       }
  });
 
 io.on("connection", (socket) => {
-  socket.on("join",({name,room,dp},callback)=>{
+  socket.on("join",({name,room,dp,name1},callback)=>{
    
-    const {error,user}=addUser({id:socket.id,name,room,dp});
+    const {error,user}=addUser({id:socket.id,name,room,dp,name1});
     if(error)
     return callback(error)
 
@@ -40,7 +46,7 @@ io.on("connection", (socket) => {
     console.log(erro);
    }
    else if(codee){
-    console.log('why',codee.source)
+    
    io.to(user.room).emit('code',{source:codee.source,
   inp:codee.inp,
 out:codee.out})

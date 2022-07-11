@@ -63,6 +63,7 @@ function Navbar({notify}) {
                   localStorage.removeItem("token1");
                   localStorage.removeItem("email"); 
                   localStorage.removeItem("dp"); 
+                  
                   navigate('/');
                   notify("signout succesfully")
                 }} className='btn-primary'>Signout</button>}

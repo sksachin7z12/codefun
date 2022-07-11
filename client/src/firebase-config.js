@@ -30,11 +30,11 @@ signInWithPopup(auth,provider).then((result)=>{
   const email=result.user.email;
   const profilepic=result.user.photoURL;
   const token=result.user.uid;
-  const name=result.user.displayName;
+  
   localStorage.setItem('token1',token);
   localStorage.setItem('dp',profilepic);
   localStorage.setItem('email',email);
-  localStorage.setItem('name',name);
+ 
   window.location.reload();
 }).catch((error)=>{
   alert(error)

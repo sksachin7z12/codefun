@@ -4,7 +4,7 @@ import { OTSession, OTPublisher, OTStreams, OTSubscriber } from 'opentok-react';
 import '@opentok/client'
 import {BsFillChatLeftDotsFill,BsHeadset,BsShareFill,BsFileEarmarkArrowDown ,BsPlayFill,BsSaveFill} from 'react-icons/bs'
 import {BiChalkboard} from 'react-icons/bi'
-function Editornav({source,chat,setChat,compiler,room,handlesendcode,whiteBoard,setWhiteBoard,download,notify,namee,contri,setContri}) {
+function Editornav({source,chat,setChat,compiler,room,handlesendcode,whiteBoard,setWhiteBoard,download,notify,contri,setContri}) {
     
     const handlevisibile=()=>{
       var ele=document.getElementById('voicee');
@@ -17,13 +17,17 @@ function Editornav({source,chat,setChat,compiler,room,handlesendcode,whiteBoard,
         ele.classList.add("voice1");
       }
     }
-    
+    const handleclick=()=>{
+     if(window.innerWidth<=767)
+        setContri(!contri)
+   
+    }
   return (
     <div>
          <nav>
            <div className='w-[100vw] h-12 flex justify-between items-center bg-black'>
             <div className='w-[100vw] flex items-center'>
-             <div onClick={()=>{setContri(!contri)}} className='p-3 font-bold text-white'>
+             <div onClick={handleclick} className='p-3 font-bold text-white'>
               {room}
               </div>
             <ul className='w-[88vw] sm:grid sm:grid-cols-4 flex items-center justify-center space-x-4 sm:space-x-3'>
@@ -75,7 +79,7 @@ function Editornav({source,chat,setChat,compiler,room,handlesendcode,whiteBoard,
                 
                 <li onMouseOver={()=>{document.getElementById('share').style.display="block"}} onMouseLeave={()=>{document.getElementById('share').style.display="none"}}>
                   <div>
-                <button onClick={()=>{window.navigator.clipboard.writeText(`http://localhost:3000/room?name=${namee}&room=${room}&sessionId=${localStorage.getItem('sessionId')}&token=${localStorage.getItem('token')}`);notify("link copied")}} className='text-white text-lg sm:px-3'><BsShareFill/></button>
+                <button onClick={()=>{window.navigator.clipboard.writeText(`http://localhost:3000/room?room=${room}&sessionId=${localStorage.getItem('sessionId')}&token=${localStorage.getItem('token')}`);notify("link copied")}} className='text-white text-lg sm:px-3'><BsShareFill/></button>
 
                   </div>
                   <div id='share' className='hidden text-white bg-black p-2 rounded-md absolute top-[7rem]'>

@@ -8,7 +8,7 @@ import AceEditor from "react-ace";
 import io from "socket.io-client"
 import queryString from 'query-string'
 import Message from './Message';
-import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
+
 import Spinner from './Spinner';
 import "ace-builds/src-noconflict/mode-c_cpp";
 import "ace-builds/src-noconflict/mode-javascript";
@@ -47,20 +47,21 @@ const [loading, setLoading] = useState(false)
   
   let navigate=useNavigate();
   let location=useLocation();
-  const [nameFromSeed, setNameFromSeed] = useState('')
+  
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-
+  
   const [source, setSource] = useState("");
   const [inp, setInp] = useState("");
   const [langid, setLangid] = useState(63);
   const [stdoutt, setStdo] = useState("");
   const [contri, setContri] = useState(false)
 
-const ENDPOINT="http://localhost:5000";
+// const ENDPOINT="http://localhost:5000";
+const ENDPOINT="https://codecollab7z2.herokuapp.com/";
 
 
 useEffect(() => {
@@ -77,23 +78,23 @@ useEffect(() => {
  socket=io(ENDPOINT);
   setName(name);
   setRoom(room);
-  socket.emit('join',{name,room,dp:localStorage.getItem('dp')},(error)=>{
+  
+  socket.emit('join',{name,room,dp:localStorage.getItem('dp'),name1:localStorage.getItem('email').split("@")[0]},(error)=>{
     if(error){
     
       navigate('/join');
      notify("Username is taken")
     }
   });
-  const config ={
-    dictionaries: [adjectives, colors, animals],
-    separator: '-',
-    
-  };
-  const nameFromSeed = uniqueNamesGenerator(config); // stable-crimson-porpoise
-  setNameFromSeed(nameFromSeed);
+
+
 return ()=>{
   socket.disconnect();
 // socket.off();
+localStorage.removeItem('tokencode');
+localStorage.removeItem('token');
+localStorage.removeItem('sessionId');
+
 }
 }, [ENDPOINT,location.search,navigate,notify]);
 // useEffect(() => {
@@ -252,13 +253,13 @@ setLoading(false);
   return (
     <>
      {loading && <Spinner/>}
-    <Editornav source={source} contri={contri} setContri={setContri} namee={nameFromSeed} notify={notify} download={download} whiteBoard={whiteBoard} setWhiteBoard={setWhiteBoard}  room={room} handlesendcode={handlesendcode} compiler={compiler} chat={chat} setChat={setChat}/>
+    <Editornav source={source} contri={contri} setContri={setContri} notify={notify} download={download} whiteBoard={whiteBoard} setWhiteBoard={setWhiteBoard}  room={room} handlesendcode={handlesendcode} compiler={compiler} chat={chat} setChat={setChat}/>
      
    {chat&& <div className="absolute right-0 w-[300px] border-2 h-[80vh] z-10">
     <div className='h-[73vh] bg-yellow-200 overflow-y-scroll'>
       {
         messages.map((message,i)=>{
-         return <div key={i}><Message name={name} message={message}/></div>
+         return <div key={i}><Message name={name?name:localStorage.getItem('email').split('@')[0]} message={message}/></div>
         })
       }
     </div>
@@ -293,15 +294,15 @@ setLoading(false);
   {users?
   <div>
    
-    {users.map(({name,dp})=>{
-     return <div className='grid grid-cols-[60px_1fr] mb-3 items-center' key={name}>
+    {users.map(({name,dp,name1})=>{
+     return <div className='grid grid-cols-[60px_1fr] mb-3 items-center' key={name?name:name1}>
         <div>
          { dp?<img src={`${dp}`} alt='' width="50"/>
         :<Avatar name={name} size={50}/>}
           
         </div>
         <div>
-          {name}
+          {name?name:name1}
         </div>
      </div>
     })}
@@ -315,13 +316,13 @@ setLoading(false);
   {users?
   <div>
    
-    {users.map(({name,dp})=>{
+    {users.map(({name,dp,name1})=>{
      return <div className='grid grid-cols-[60px_1fr] mb-3 items-center' key={name}>
         <div>
           <img src={`${dp}`} alt="dp" width="50"/>
         </div>
         <div>
-          {name}
+          {name?name:name1}
         </div>
      </div>
     })}

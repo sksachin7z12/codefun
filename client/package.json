@@ -10,8 +10,6 @@
     "axios": "^0.27.2",
     "firebase": "^9.8.4",
     "opentok-react": "^0.11.0",
-    "opentok-react-whiteboard": "^1.7.0",
-    "peerjs": "^1.4.6",
     "query-string": "^7.1.1",
     "react": "^18.2.0",
     "react-ace": "^10.1.0",
@@ -20,12 +18,9 @@
     "react-emoji": "^0.5.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
-    "react-script-tag": "^1.1.2",
     "react-scripts": "5.0.1",
-    "react-sketch-whiteboard": "^3.9.3",
     "react-toastify": "^9.0.5",
     "socket.io-client": "^4.5.1",
-    "unique-names-generator": "^4.7.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

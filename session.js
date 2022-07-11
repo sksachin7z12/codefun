@@ -12,7 +12,7 @@ const addsession=(sessionId,room,token)=>{
     }
     const session={room:room,sessionId:sessionId,token:token,date:new Date()};
     sessions.push(session);
-    console.log(sessions)
+  
     return {sessioninfo:session}
 }
 const removesession=(room)=>{
@@ -21,7 +21,7 @@ const removesession=(room)=>{
     if(ind!==-1){
          sessions.splice(ind,1)[0];
     }
-    console.log("session removed",sessions);
+    
 }
 function diff_hours(dt2, dt1) 
  {

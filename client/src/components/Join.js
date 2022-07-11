@@ -2,6 +2,8 @@ import React,{useState,useEffect} from 'react'
 import {  useNavigate } from 'react-router-dom';
 import Spinner from './Spinner';
 function Join({notify}) {
+  const host="https://codecollab7z2.herokuapp.com/";
+  // const host="https://localhost:5000/";
   const [loading, setLoading] = useState(false)
   let navigate=useNavigate();
   useEffect(() => {
@@ -23,7 +25,7 @@ function Join({notify}) {
       return;
     }
     setLoading(true);
-const response=await fetch('http://localhost:5000/token',{
+const response=await fetch(`${host}/token`,{
   method:'POST',
   
   headers: {
@@ -34,7 +36,7 @@ const response=await fetch('http://localhost:5000/token',{
 });
 const data=await response.json();
 setLoading(false)
-console.log(data)
+
   localStorage.setItem('sessionId',data.sessionId);
   localStorage.setItem('token',data.token);
   //can use context api but for now localstorage or directly to app.js
@@ -45,9 +47,10 @@ console.log(data)
   const handlecreate=async()=>{
     var room=localStorage.getItem('email');
     room=room.split('@')[0];
-    const name=localStorage.getItem('name');
+    var name=localStorage.getItem('email');
+    name=name.split('@')[0];
       setLoading(true)
-    const response=await fetch('http://localhost:5000/token',{
+    const response=await fetch(`${host}/token`,{
   method:'POST',
   
   headers: {
@@ -58,13 +61,14 @@ console.log(data)
 });
 const data=await response.json();
 setLoading(false);
-console.log(data)
+
   localStorage.setItem('sessionId',data.sessionId);
   localStorage.setItem('token',data.token);
   //can use context api but for now localstorage or directly to app.js
-  navigate(`/room?name=${name}&room=${room}`);
+  
+  navigate(`/room?name1=${name}&room=${room}`);
 
-    navigate(`/room?name=${name}&room=${room}`)
+   
   }
   return (
     <>
@@ -73,11 +77,11 @@ console.log(data)
         <div>
           <h1 className='text-center p-5 font-bold text-xl'>Create / Join</h1>
           
-           <div className='pb-1'> <input className='border-2 rounded-md  p-1 border-blue-700' type="text" placeholder='name' name="name" id="name" value={name} onChange={(e)=>{setName(e.target.value)}}/></div>
+           <div className='pb-1'> <input className='border-2 rounded-md  p-1 border-blue-700' type="text" placeholder='username' name="name" id="name" value={name} onChange={(e)=>{setName(e.target.value)}}/></div>
             <div><input className='border-2 rounded-md p-1 border-blue-700' type="text"  placeholder='room' name="room" id="room" value={room} onChange={(e)=>{setRoom(e.target.value)}}/></div>
             <div className='space-x-3 text-center pt-2'>
               <button onClick={handlesubmit} className={`btn-primary ${(!name || !room)?"opacity-50  cursor-not-allowed":""}`}>Join</button>
-              <button onClick={handlecreate} className='btn-primary'>Create</button>
+              <button onClick={handlecreate} className='btn-secondary'>Create Room</button>
             </div>
          
           
