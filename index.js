@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 
-const OT=new opentok("47536461","451939008cebc5c2dc26f19dc50417af8bf2c8e3");
+const OT=new opentok(process.env.API_KEY,process.env.SECRET);
 
 const port=process.env.PORT||5000;
 
