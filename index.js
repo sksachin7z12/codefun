@@ -26,7 +26,7 @@ const io = new Server(httpServer, {
     cors: {
         // origin: "http://localhost:3000",
         'Access-Control-Allow-Origin':'*',
-        origin:"https://codecollabclient-93wj.vercel.app",
+        origin:"*",
         methods: ["GET", "POST"]
       }
  });
