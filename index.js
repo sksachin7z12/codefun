@@ -12,7 +12,10 @@ const cors=require("cors");
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 const OT=new opentok(process.env.API_KEY,process.env.SECRET);
 
@@ -22,6 +25,7 @@ const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
         // origin: "http://localhost:3000",
+        'Access-Control-Allow-Origin':'*',
         origin:"https://codecollabclient-93wj.vercel.app",
         methods: ["GET", "POST"]
       }
