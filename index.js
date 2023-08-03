@@ -30,7 +30,7 @@ const io = new Server(httpServer, {
         methods: ["GET", "POST"]
       }
  });
-
+app.use(express.static(__dirname+'/build'))
 io.on("connection", (socket) => {
   socket.on("join",({name,room,dp},callback)=>{
    
@@ -118,10 +118,10 @@ if(user!==undefined){
 //   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
 // });
 app.get('/join',(req,res)=>{
-  res.sendFile(__dirname+'/client/build/index.html')
+  res.sendFile(__dirname+'/build/index.html')
 })
 app.get('/room',(req,res)=>{
-  res.sendFile(__dirname+'/client/build/index.html')
+  res.sendFile(__dirname+'/build/index.html')
 })
 app.post('/token',async(req,res)=>{
   const {room}=req.body;
