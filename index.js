@@ -5,6 +5,7 @@ const {addUser,getuserinroom,removeUser,getUser,isEmpty} =require('./users');
 const {addcode,removecode,getcode}=require("./code");
 const {getSessionid,addsession,removesession} =require('./session')
 const opentok=require("opentok");
+const axios=require('axios')
 require('dotenv').config();
 
 const cors=require("cors");
@@ -30,7 +31,8 @@ const io = new Server(httpServer, {
         methods: ["GET", "POST"]
       }
  });
-app.use(express.static(__dirname+'/build'))
+ app.use(express.static(__dirname+ '/public'))
+
 io.on("connection", (socket) => {
   socket.on("join",({name,room,dp},callback)=>{
    
@@ -117,11 +119,20 @@ if(user!==undefined){
 // app.get('*', (req, res) => {  // have to add in header const path=require('path)
 //   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
 // });
+app.get('/api/temp',(req,res)=>{
+  res.send("welcome to codecollab backend");
+})
+const h='https://codecollab7z2.onrender.com'
+setInterval(async()=>{
+  const res=await axios.get(`${h}/api/temp`)
+  console.log(res.data)
+},660000)
+
 app.get('/join',(req,res)=>{
-  res.sendFile(__dirname+'/build/index.html')
+  res.sendFile(__dirname+'/public/index.html')
 })
 app.get('/room',(req,res)=>{
-  res.sendFile(__dirname+'/build/index.html')
+  res.sendFile(__dirname+'/public/index.html')
 })
 app.post('/token',async(req,res)=>{
   const {room}=req.body;

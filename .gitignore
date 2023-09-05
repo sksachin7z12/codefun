@@ -1,3 +1,6 @@
 node_modules
 .env
+.space
+Spacefile
+Discovery.md
 .deta
