@@ -165,7 +165,7 @@ if(user!==undefined){
 app.get('/api/temp',(req,res)=>{
   res.send("welcome to codecollab backend");
 })
-const h='https://codecollab7z2.onrender.com'
+const h='https://codecollab7z2-8g25.onrender.com'
 setInterval(async()=>{
   const res=await axios.get(`${h}/api/temp`)
   console.log(res.data)
