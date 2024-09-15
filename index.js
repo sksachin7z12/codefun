@@ -81,7 +81,7 @@ io.on("connection", (socket) => {
    }
    else if(codee){
     
-   socket.broadcast.to(user.room).emit('code',{source:codee.source,
+   io.to(user.room).emit('code',{source:codee.source,
   inp:codee.inp,
 out:codee.out})
    }
@@ -104,7 +104,7 @@ socket.join(room);
   //whiteboard
   socket.on('canvas-data', (data,room)=> {
     
-    io.to(room).emit('canvas-data', data);
+    socket.broadcast.to(room).emit('canvas-data', data);
       
   })
 
