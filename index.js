@@ -81,7 +81,7 @@ io.on("connection", (socket) => {
    }
    else if(codee){
     
-   socket.broadcast.emit('code',{source:codee.source,
+   socket.broadcast.to(user.room).emit('code',{source:codee.source,
   inp:codee.inp,
 out:codee.out})
    }
@@ -128,7 +128,7 @@ if(user!==undefined){
    addcode(user.room,source,inp,out);
 
  
-  io.to(user.room).emit('code',{
+  socket.broadcast.to(user.room).emit('code',{
     source:source,
     inp:inp,
     out:out
